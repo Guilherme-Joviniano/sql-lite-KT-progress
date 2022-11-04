@@ -1,24 +1,45 @@
-package br.com.senai.jandira.sql_lite_kt.UI
+package br.com.senai.jandira.sql_lite_kt.user
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.recyclerview.widget.LinearLayoutManager
+import br.com.senai.jandira.sql_lite_kt.adapter.ContactAdapter
 import br.com.senai.jandira.sql_lite_kt.databinding.ActivityMainBinding
+import br.com.senai.jandira.sql_lite_kt.models.Contact
+import br.com.senai.jandira.sql_lite_kt.repository.ContactRepository
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+    private lateinit var adapterContact: ContactAdapter
+    private lateinit var contactRepository: ContactRepository
+
     override fun onCreate(savedInstanceState: Bundle?) {
+        contactRepository = ContactRepository(this)
+
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         // Views
-        val rvContacts = binding.rvContacts
         val btnAddContact = binding.fbNewContact
 
         // handles
         handleFloatBtn(btnAddContact)
+
+        // rvContact
+        binding.rvContacts.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        this.adapterContact = ContactAdapter(this)
+
+        bindContactRv(contactRepository.getAll())
+
+        binding.rvContacts.adapter = this.adapterContact
+    }
+
+    private fun bindContactRv(data: List<Contact>) {
+        this.adapterContact.updateList(data)
     }
 
     // Intent's
@@ -31,6 +52,11 @@ class MainActivity : AppCompatActivity() {
         btn.setOnClickListener {
             startActivity(openNewContactRegister());
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        bindContactRv(contactRepository.getAll())
     }
 }
 

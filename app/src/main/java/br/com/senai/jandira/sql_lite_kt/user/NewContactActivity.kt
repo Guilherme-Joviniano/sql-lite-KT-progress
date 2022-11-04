@@ -1,6 +1,5 @@
-package br.com.senai.jandira.sql_lite_kt.UI
+package br.com.senai.jandira.sql_lite_kt.user
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -8,7 +7,6 @@ import android.widget.Toast
 import br.com.senai.jandira.sql_lite_kt.databinding.ActivityNewContactBinding
 import br.com.senai.jandira.sql_lite_kt.models.Contact
 import br.com.senai.jandira.sql_lite_kt.repository.ContactRepository
-import java.lang.Error
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
