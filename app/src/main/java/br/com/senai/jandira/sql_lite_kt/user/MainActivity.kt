@@ -25,20 +25,23 @@ class MainActivity : AppCompatActivity() {
         // Views
         val btnAddContact = binding.fbNewContact
 
-        // handles
+        // Handlers
         handleFloatBtn(btnAddContact)
+    }
 
+    private fun onRunRvContact() {
         // rvContact
         binding.rvContacts.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         this.adapterContact = ContactAdapter(this)
 
-        bindContactRv(contactRepository.getAll())
+        bindRvContact(contactRepository.getAll())
 
         binding.rvContacts.adapter = this.adapterContact
     }
 
-    private fun bindContactRv(data: List<Contact>) {
+    // Bind's
+    private fun bindRvContact(data: List<Contact>) {
         this.adapterContact.updateList(data)
     }
 
@@ -56,7 +59,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        bindContactRv(contactRepository.getAll())
+        onRunRvContact()
     }
 }
 

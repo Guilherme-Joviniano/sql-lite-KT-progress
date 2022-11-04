@@ -8,6 +8,7 @@
     tools:context=".hoderContact">
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewContact"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:cardBackgroundColor="@color/purple_200"
